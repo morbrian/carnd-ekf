@@ -28,9 +28,6 @@ public:
   double noise_ax;
   double noise_ay;
 
-  // utility
-  Tools tools_;
-
   /**
    * Constructor
    */
