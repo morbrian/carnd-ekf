@@ -32,6 +32,9 @@ FusionEKF::FusionEKF() {
         0, 0.0009, 0,
         0, 0, 0.09;
 
+  H_laser_ << 1, 0, 0, 0,
+      0, 1, 0, 0;
+
   /**
   TODO:
     * Finish initializing the FusionEKF.
@@ -148,12 +151,9 @@ void FusionEKF::ProcessMeasurement(const MeasurementPackage &measurement_pack) {
      * Use the sensor type to perform the update step.
      * Update the state and covariance matrices.
    */
-  cout << "predict completed" << endl;
   if (measurement_pack.sensor_type_ == MeasurementPackage::RADAR) {
     // Radar updates
-
     Hj_ = tools.CalculateJacobian(ekf_.x_);
-
     ekf_.H_ = Hj_;
     ekf_.R_ = R_radar_;
     ekf_.UpdateEKF(measurement_pack.raw_measurements_);
